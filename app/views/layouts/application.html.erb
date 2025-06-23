@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="tr">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>FlowTrace - Envanter Yönetim Sistemi</title>
+
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="FlowTrace ile envanterinizi QR kodlarla takip edin">
+    <meta name="keywords" content="envanter, qr kod, stok takip, warehouse">
+    <meta name="author" content="FlowTrace">
+
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="FlowTrace - Envanter Yönetim Sistemi">
+    <meta property="og:description" content="Modern envanter yönetimi QR kodlarla">
+    <meta property="og:site_name" content="FlowTrace">
+
+    <!-- CSRF Token -->
+    <meta name="csrf-token" content="<%= csrf_token %>">
+
+    <!-- API Base URL for JavaScript -->
+    <meta name="api-base-url" content="<%= request.base_url %>/api/v1">
+
+    <!-- User Info for JavaScript -->
+    <% if user_signed_in? %>
+      <meta name="current-user" content="<%= current_user.to_json(only: [:id, :name, :email, :role]) %>">
+    <% end %>
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+
+    <!-- Stylesheets -->
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag 'application', 'data-turbo-track': 'reload' %>
+    <%= javascript_importmap_tags %>
+
+    <!-- Progressive Web App -->
+    <link rel="manifest" href="/manifest.json">
+    <meta name="theme-color" content="#3b82f6">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="FlowTrace">
+
+    <!-- Turbo Configuration -->
+    <meta name="turbo-cache-control" content="no-cache">
+  </head>
+
+  <body class="bg-gray-50 text-gray-900">
+    <!-- Skip to content link for accessibility -->
+    <a href="#main-content" class="sr-only focus:not-sr-only focus:absolute focus:top-0 focus:left-0 bg-blue-600 text-white p-2 z-50">
+      Ana içeriğe geç
+    </a>
+
+    <!-- Flash Messages -->
+    <% if notice %>
+      <div class="alert alert-success alert-dismissible fade show m-0" role="alert">
+        <%= notice %>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      </div>
+    <% end %>
+
+    <% if alert %>
+      <div class="alert alert-danger alert-dismissible fade show m-0" role="alert">
+        <%= alert %>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      </div>
+    <% end %>
+
+    <!-- Navigation -->
+    <% if user_signed_in? %>
+      <nav class="bg-white shadow-sm border-b">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div class="flex justify-between items-center h-16">
+            <!-- Logo -->
+            <div class="flex items-center">
+              <%= link_to root_path, class: "flex items-center space-x-2" do %>
+                <svg class="w-8 h-8 text-blue-600" fill="currentColor" viewBox="0 0 20 20">
+                  <path d="M3 4a1 1 0 011-1h12a1 1 0 011 1v2a1 1 0 01-1 1H4a1 1 0 01-1-1V4zM3 10a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H4a1 1 0 01-1-1v-6zM14 9a1 1 0 00-1 1v6a1 1 0 001 1h2a1 1 0 001-1v-6a1 1 0 00-1-1h-2z"/>
+                </svg>
+                <span class="text-xl font-bold text-gray-900">FlowTrace</span>
+              <% end %>
+            </div>
+
+            <!-- User Menu -->
+            <div class="flex items-center space-x-4">
+              <span class="text-sm text-gray-600">
+                <%= current_user.display_name %>
+              </span>
+              <%= link_to destroy_user_session_path, method: :delete,
+                    class: "inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition" do %>
+                <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/>
+                </svg>
+                Çıkış
+              <% end %>
+            </div>
+          </div>
+        </div>
+      </nav>
+    <% end %>
+
+    <!-- Main Content -->
+    <main id="main-content" class="<%= user_signed_in? ? 'min-h-screen' : 'min-h-screen' %>">
+      <%= yield %>
+    </main>
+
+    <!-- Footer -->
+    <% unless request.path.start_with?('/app') %>
+      <footer class="bg-white border-t mt-auto">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+          <div class="text-center text-sm text-gray-500">
+            <p>&copy; <%= Date.current.year %> FlowTrace. Tüm hakları saklıdır.</p>
+          </div>
+        </div>
+      </footer>
+    <% end %>
+
+    <!-- Loading Overlay -->
+    <div id="loading-overlay" class="hidden fixed inset-0 bg-gray-600 bg-opacity-50 z-50 flex items-center justify-center">
+      <div class="bg-white rounded-lg p-6 flex items-center space-x-3">
+        <svg class="animate-spin h-5 w-5 text-blue-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+          <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+          <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+        </svg>
+        <span class="text-gray-900">Yükleniyor...</span>
+      </div>
+    </div>
+
+    <!-- Global JavaScript Variables -->
+    <script>
+      window.FlowTrace = {
+        baseURL: '<%= request.base_url %>',
+        apiURL: '<%= request.base_url %>/api/v1',
+        currentUser: <%= user_signed_in? ? current_user.to_json(only: [:id, :name, :email, :role]).html_safe : 'null' %>,
+        csrfToken: '<%= csrf_token %>',
+        environment: '<%= Rails.env %>'
+      };
+    </script>
+  </body>
+</html>

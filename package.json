@@ -1,0 +1,49 @@
+{
+  "name": "flowtrace",
+  "version": "1.0.0",
+  "description": "Envanter yönetimi uygulaması",
+  "private": true,
+  "scripts": {
+    "build": "esbuild app/javascript/*.* --bundle --sourcemap --outdir=app/assets/builds --public-path=assets",
+    "build:css": "sass ./app/assets/stylesheets/application.scss:./app/assets/builds/application.css --no-source-map --load-path=node_modules",
+    "dev": "concurrently \"npm run build -- --watch\" \"npm run build:css -- --watch\"",
+    "lint": "eslint app/javascript --ext .js,.vue",
+    "lint:fix": "eslint app/javascript --ext .js,.vue --fix",
+    "test": "vitest"
+  },
+  "dependencies": {
+    "@hotwired/stimulus": "^3.2.1",
+    "@hotwired/turbo-rails": "^7.1.3",
+    "vue": "^3.3.0",
+    "vue-router": "^4.2.0",
+    "axios": "^1.4.0",
+    "html5-qrcode": "^2.3.0",
+    "chart.js": "^4.3.0",
+    "vue-chartjs": "^5.2.0",
+    "workbox-webpack-plugin": "^6.6.0",
+    "date-fns": "^2.30.0",
+    "vue-toastification": "^2.0.0-rc.5",
+    "lodash": "^4.17.21",
+    "@vueuse/core": "^10.1.0",
+    "pinia": "^2.1.0"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^4.2.0",
+    "esbuild": "^0.17.19",
+    "sass": "^1.62.1",
+    "concurrently": "^8.0.1",
+    "eslint": "^8.41.0",
+    "eslint-plugin-vue": "^9.14.0",
+    "@vue/eslint-config-prettier": "^7.1.0",
+    "prettier": "^2.8.8",
+    "vitest": "^0.31.0",
+    "@vue/test-utils": "^2.3.2",
+    "jsdom": "^22.0.0",
+    "autoprefixer": "^10.4.14",
+    "postcss": "^8.4.23",
+    "tailwindcss": "^3.3.0"
+  },
+  "browserslist": [
+    "defaults"
+  ]
+}
