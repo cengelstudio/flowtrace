@@ -4,9 +4,11 @@
   "description": "Envanter yönetimi uygulaması",
   "private": true,
   "scripts": {
-    "build": "esbuild app/javascript/*.* --bundle --sourcemap --outdir=app/assets/builds --public-path=assets",
+    "build": "vite build",
     "build:css": "sass ./app/assets/stylesheets/application.scss:./app/assets/builds/application.css --no-source-map --load-path=node_modules",
-    "dev": "concurrently \"npm run build -- --watch\" \"npm run build:css -- --watch\"",
+    "dev": "vite --config vite.config.docker.js",
+    "dev:local": "vite",
+    "preview": "vite preview",
     "lint": "eslint app/javascript --ext .js,.vue",
     "lint:fix": "eslint app/javascript --ext .js,.vue --fix",
     "test": "vitest"
@@ -25,10 +27,12 @@
     "vue-toastification": "^2.0.0-rc.5",
     "lodash": "^4.17.21",
     "@vueuse/core": "^10.1.0",
-    "pinia": "^2.1.0"
+    "pinia": "^2.1.0",
+    "@heroicons/vue": "^2.0.18"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^4.2.0",
+    "vite": "^4.3.9",
     "esbuild": "^0.17.19",
     "sass": "^1.62.1",
     "concurrently": "^8.0.1",

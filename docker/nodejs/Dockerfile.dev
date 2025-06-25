@@ -1,0 +1,22 @@
+FROM node:18-alpine
+
+# Install system dependencies
+RUN apk add --no-cache \
+    git \
+    bash
+
+# Set working directory
+WORKDIR /app
+
+# Copy package files first for better caching
+COPY package.json package-lock.json* ./
+
+# Install node modules
+RUN npm install
+
+# Expose ports
+EXPOSE 5601
+EXPOSE 5602
+
+# Default command
+CMD ["npm", "run", "dev"]

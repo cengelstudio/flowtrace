@@ -21,17 +21,15 @@ services:
     networks:
       - flowtrace-network
 
-  web:
+  backend:
     build:
       context: .
-      dockerfile: docker/ruby/Dockerfile
-    command: bash -c "sleep 10 && bundle exec rails server -b 0.0.0.0"
+      dockerfile: docker/ruby/Dockerfile.dev
+    command: bash -c "bundle exec rails db:create; bundle exec rails db:migrate; bundle exec rails db:seed; bundle exec rails server -b 0.0.0.0 -p 5609"
     volumes:
-      - .:/app
       - bundle_cache:/usr/local/bundle
-      - node_modules:/app/node_modules
     ports:
-      - "3000:3000"
+      - "5609:5609"
     depends_on:
       - db
       - redis
@@ -43,24 +41,31 @@ services:
       - REDIS_URL=redis://redis:6379/0
       - RAILS_ENV=development
       - SECRET_KEY_BASE=development_secret_key_base_replace_in_production
-      - RAILS_LOG_LEVEL=error
+      - RAILS_LOG_LEVEL=debug
+      - PORT=5609
     networks:
       - flowtrace-network
+    stdin_open: true
+    tty: true
 
-  nginx:
+  frontend:
     build:
       context: .
-      dockerfile: docker/nginx/Dockerfile
-    ports:
-      - "80:80"
-    depends_on:
-      - web
+      dockerfile: docker/nodejs/Dockerfile.dev
+    command: bash -c "npm install && npm run dev -- --host 0.0.0.0 --port 5601"
     volumes:
-      - ./public:/app/public
-      - ./app/assets/builds:/app/public/assets
-      - ./docker/nginx/nginx.conf:/etc/nginx/nginx.conf
+      - .:/app
+      - node_modules:/app/node_modules
+    ports:
+      - "5601:5601"
+      - "5602:5602"  # HMR port
+    environment:
+      - NODE_ENV=development
+      - API_URL=http://backend:5609
     networks:
       - flowtrace-network
+    stdin_open: true
+    tty: true
 
 volumes:
   postgres_data:

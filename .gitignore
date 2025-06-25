@@ -4,8 +4,13 @@
 # or operating system, you probably want to add a global ignore instead:
 #   git config --global core.excludesfile '~/.gitignore_global'
 
+# =============================================================================
+# RUBY / RAILS
+# =============================================================================
+
 # Ignore bundler config.
 /.bundle
+/vendor/bundle
 
 # Ignore all logfiles and tempfiles.
 /log/*
@@ -25,80 +30,9 @@
 !/tmp/storage/
 !/tmp/storage/.keep
 
-/public/assets
-.byebug_history
-
 # Ignore master key for decrypting credentials and more.
 /config/master.key
-
-# Ignore application configuration
-/config/application.yml
-
-# Ignore database configuration
-/config/database.yml
-
-# Ignore environment variables
-.env
-.env.*
-
-# Ignore node modules
-node_modules/
-/node_modules
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-
-# Ignore build outputs
-/app/assets/builds/*
-!/app/assets/builds/.keep
-/public/builds/*
-!/public/builds/.keep
-
-# Ignore coverage reports
-/coverage/
-
-# Ignore IDE and editor files
-/.vscode
-/.idea
-*.swp
-*.swo
-*~
-
-# Ignore OS generated files
-.DS_Store
-.DS_Store?
-._*
-.Spotlight-V100
-.Trashes
-ehthumbs.db
-Thumbs.db
-
-# Ignore Docker volumes
-/postgres_data
-/redis_data
-
-# Ignore QR code files
-/public/qr_codes/*
-!/public/qr_codes/.keep
-
-# Ignore uploads
-/public/uploads/*
-!/public/uploads/.keep
-
-# Ignore temporary files
-*.tmp
-*.temp
-
-# Ignore backup files
-*.bak
-*.backup
-
-# Ignore SSL certificates
-/config/ssl/
-/docker/nginx/certs/
-
-# Ignore logs
-*.log
+/config/credentials.yml.enc
 
 # Ignore Ruby/Rails specific
 *.gem
@@ -110,22 +44,155 @@ Thumbs.db
 /spec/examples.txt
 /test/tmp/
 /test/version_tmp/
-/vendor/bundle
 
 # Ignore Spring files
 /spring/*.pid
 
-# Ignore credentials
-/config/credentials.yml.enc
+# =============================================================================
+# NODE.JS / FRONTEND
+# =============================================================================
 
-# Ignore yarn lock file for npm projects
+# Ignore node modules
+node_modules/
+/node_modules
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
 yarn.lock
 
-# Ignore package-lock.json changes
-package-lock.json
+# Ignore build outputs
+/app/assets/builds/*
+!/app/assets/builds/.keep
+/public/builds/*
+!/public/builds/.keep
+/public/assets
 
-# Ignore local environment specific files
+# =============================================================================
+# DATABASE & STORAGE
+# =============================================================================
+
+# Ignore database configuration
+/config/database.yml
+
+# Ignore database files
+*.sqlite3
+*.sqlite3-*
+
+# =============================================================================
+# ENVIRONMENT & CONFIGURATION
+# =============================================================================
+
+# Ignore environment variables
+.env
+.env.*
 .env.local
 .env.development.local
 .env.test.local
 .env.production.local
+
+# Ignore application configuration
+/config/application.yml
+
+# =============================================================================
+# DOCKER
+# =============================================================================
+
+# Ignore Docker volumes
+/postgres_data
+/redis_data
+docker-compose.override.yml
+
+# =============================================================================
+# UPLOADS & GENERATED FILES
+# =============================================================================
+
+# Ignore QR code files
+/public/qr_codes/*
+!/public/qr_codes/.keep
+
+# Ignore uploads
+/public/uploads/*
+!/public/uploads/.keep
+
+# =============================================================================
+# DEVELOPMENT & TESTING
+# =============================================================================
+
+# Ignore coverage reports
+/coverage/
+
+# Ignore test artifacts
+/test/tmp/
+/spec/tmp/
+
+# =============================================================================
+# IDE & EDITOR FILES
+# =============================================================================
+
+# Ignore IDE and editor files
+/.vscode
+/.idea
+*.swp
+*.swo
+*~
+
+# =============================================================================
+# OPERATING SYSTEM
+# =============================================================================
+
+# Ignore OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# =============================================================================
+# TEMPORARY & BACKUP FILES
+# =============================================================================
+
+# Ignore temporary files
+*.tmp
+*.temp
+
+# Ignore backup files
+*.bak
+*.backup
+
+# Ignore logs
+*.log
+.byebug_history
+
+# =============================================================================
+# SSL & SECURITY
+# =============================================================================
+
+# Ignore SSL certificates
+/config/ssl/
+/docker/nginx/certs/
+
+# =============================================================================
+# PACKAGE MANAGEMENT
+# =============================================================================
+
+# Ignore package-lock.json changes (for npm projects)
+# package-lock.json
+
+# Ignore lock files
+*.lock
+Gemfile.lock
+package-lock.json
+yarn.lock
+
+# =============================================================================
+# FLOWTRACE SPECIFIC
+# =============================================================================
+
+# Ignore development scripts (optional - remove if you want to track them)
+# /scripts/dev-*.sh
+# /scripts/docker-*.sh
+
+# Ignore local development overrides
+docker-compose.override.yml

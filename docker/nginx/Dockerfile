@@ -7,4 +7,4 @@ COPY docker/nginx/nginx.conf /etc/nginx/nginx.conf
 RUN mkdir -p /app/public
 
 # Expose ports
-EXPOSE 80 443
+EXPOSE 80
